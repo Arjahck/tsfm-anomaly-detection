@@ -6,6 +6,7 @@ kramdown:
   hard_wrap: false
 exclude:
   - README.md
+  - EXPLANATION.md
   - REPORT.md
   - PLAN.md
   - CLAUDE.md

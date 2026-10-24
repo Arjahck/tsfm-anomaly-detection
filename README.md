@@ -13,6 +13,8 @@ datasets:
 
 - [BLOG.md](BLOG.md): the write-up, "Time Series Foundation Model detectors are change detectors, like any rolling
   forecast".
+- [EXPLANATION.md](EXPLANATION.md): the full explanation of both phases, from the papers and the data to the
+  methods, the runs and every result.
 - [paper/paper.pdf](paper/paper.pdf): the paper on the contamination share.
 - [REPORT.md](REPORT.md): the full results of both phases. Every number points to a file in `results/`.
 
