@@ -1,0 +1,20 @@
+# GitHub Pages: the site shows only the blog (index.md pulls in BLOG.md). The rest of the repo stays repo-only.
+title: Time Series Foundation Model detectors are change detectors, like any rolling forecast
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+exclude:
+  - README.md
+  - REPORT.md
+  - PLAN.md
+  - CLAUDE.md
+  - brief.md
+  - configs
+  - paper
+  - results
+  - src
+  - tests
+  - vendor
+  - pyproject.toml
+  - uv.lock
