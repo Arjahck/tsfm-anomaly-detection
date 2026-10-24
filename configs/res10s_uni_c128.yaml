@@ -1,0 +1,7 @@
+# D137 control: experiment 1 `uni` rolling at 10 s with the history capped at 128 steps (21 min), so that the 1 s
+# cap-128 run (paper setting) and the 10 s cap-8,192 headline can be told apart: context length at the same
+# resolution (this vs exp1_uni) and resolution at the same context steps (this vs res1s_uni_c128).
+base: exp1_uni.yaml
+
+forecast:
+  cap: 128

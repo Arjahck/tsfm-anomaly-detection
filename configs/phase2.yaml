@@ -1,0 +1,71 @@
+# Phase 2: LANL with injected anomalies (PLAN.md section 15, D140-D149). Not a Phase 1 config: it does not inherit
+# base.yaml, and nothing of Phase 1 reads it.
+seed: 0
+
+paths:
+  lanl: data/lanl
+  cache: cache/lanl
+  results: results/phase2
+  hf_cache: cache/hf
+
+data:                                            # PLAN.md 15.1-15.3, D148 (auth only, all 58 days)
+  minutes: 83520                                 # 58 days
+  fit_days: [0, 33]                              # normalization, top-N selection
+  calib_days: [34, 40]                           # thresholds; no red-team event (days 1-29)
+  test_days: [41, 57]                            # injections only here (17 days, 29.3 %)
+  top_n: 5                                       # DC-like destinations and busiest source computers (auth)
+  groups:                                        # multivariate groups (D140)
+    tenant: [auth_total, auth_failed, users_distinct]
+    dc: [dc_1, dc_2, dc_3, dc_4, dc_5]
+    host: [host_1, host_2, host_3, host_4, host_5]
+
+inject:                                          # PLAN.md 15.4, D143
+  seeds: [0, 1, 2]
+  replicas: 2
+  gap_after_min: 360
+  gap_before_min: 60
+  types:
+    silence: {targets: [auth_total, users_distinct, dc_*, host_*], magnitudes: [0.0, 0.1, 0.5], durations: [30, 180]}
+    burst: {targets: [auth_failed], magnitudes: [2, 5, 20], durations: [10, 60], baseline_min: 60}
+    ramp: {targets: [host_*], magnitudes: [0.5, 2.0, 10.0], durations: [120, 480]}
+    shift: {targets: [auth_total, dc_*], magnitudes: [0.2, 0.5, 1.0], durations: [360, 1440]}
+
+model:
+  name: chronos2
+  device: mps
+  cpu_threads: 4
+  max_context: 8192
+  chronos2:
+    repo: amazon/chronos-2
+    revision: 29ec3766d36d6f73f0696f85560a422f50e8498c
+    package: chronos-forecasting==2.3.2
+    params: 119477664
+    dtype: float32
+
+forecast:
+  H: 30
+  cap: 8192
+  batch: 32                                      # origins per Chronos-2 call (rolling only; FF goes origin by origin)
+  covariates: [tod_sin, tod_cos, day]            # known-future, for the `mv-cov` run only
+
+ff: {pct: 99.5, k: 3, max_duration: null}        # ff-interp-block, the Phase 1 interpretation (D24, D44)
+
+score:
+  eps: 0.1
+  pct: 99.5
+  grace_min: 30                                  # an alarm up to 30 min after the end still detects the injection
+  fa_exclude_before_min: 60
+  fa_exclude_after_min: 360
+
+baselines:
+  robustz_window: 60
+  seasonal_lag: 1440
+
+redteam:
+  window_min: 180                                # +- 3 h around each red-team event cluster (history days)
+
+smoke:
+  calib_days: [40, 40]
+  test_days: [41, 42]
+  seeds: [0]
+  replicas: 1

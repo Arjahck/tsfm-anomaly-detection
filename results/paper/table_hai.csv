@@ -1,0 +1,5 @@
+label,roc_auc,pr_auc,recall,fa_per_hour,detected,p_normal
+"HAI 10 s, H = 30, history 8,192",0.894,0.401,0.251,1.22,31,0.0034
+"HAI 10 s, H = 30, history 128",0.853,0.321,0.215,1.36,29,0.0038
+"HAI 10 s, H = 6, history 8,192",0.817,0.338,0.245,1.41,47,0.0039
+"HAI 1 s, H = 30, history 128",0.618,0.081,0.054,19.27,32,0.0054

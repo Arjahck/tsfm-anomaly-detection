@@ -1,0 +1,14 @@
+# D136: the D54 CPU vs MPS check of autogluon/chronos-2-small on the 10 s smoke slice (uni), before opt_small_uni runs
+# on MPS. Same slice and settings as smoke.yaml; only the checkpoint differs.
+base: smoke.yaml
+
+model:
+  chronos2:
+    repo: autogluon/chronos-2-small
+    revision: ddec01313e50b6bc58ebaa92ede81bc24a3d9f9a
+    params: 27934624
+    tag: small
+    adapter: model_chronos2_small
+
+mps_check:
+  - {setups: [uni]}

@@ -1,0 +1,9 @@
+# Experiment 3a (D24): Forecast Fallback, our INTERPRETATION `ff-interp-block` (no exit), on the base setup picked by
+# `select --stage base` (picked on test results, D21). Needs the base rolling calib cache (thresholds tau_c).
+base: base.yaml
+
+setup: selected
+selection_stage: base
+
+variant:
+  kind: ff

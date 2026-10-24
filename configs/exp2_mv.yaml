@@ -1,0 +1,8 @@
+# Experiment 2 headline (PLAN.md sections 8 and 14): Chronos-2, mv-lit (P1, P2, P3 joint, actuator and step tags as
+# past-only covariates), rolling, calib + calib2 + test. `tsfm-ad all` also runs its cf-onset diagnostic (D46).
+base: base.yaml
+
+setup: mv-lit
+
+score:
+  calib_sources: [calib, calib2]

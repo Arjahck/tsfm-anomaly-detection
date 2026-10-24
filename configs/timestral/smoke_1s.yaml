@@ -1,0 +1,11 @@
+# The Timestral 1 s smoke settings (D59; 5M uni; cap 2,048 so the cap binds), kept for a later switch back.
+# PAUSED (D117): `tsfm-ad smoke` runs ../smoke_1s.yaml (Chronos-2) only.
+base: ../smoke_1s.yaml
+
+model:
+  name: timestral
+  size: 5M
+  max_context: 32768
+
+mps_check:
+  - {size: 5M, setups: [uni]}

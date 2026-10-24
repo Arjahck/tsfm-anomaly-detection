@@ -1,0 +1,8 @@
+# Experiment 3b (D26): frozen reference context (the last 24 h of train3), INTERPRETATION `frozen`, base setup.
+base: base.yaml
+
+setup: selected
+selection_stage: base
+
+variant:
+  kind: frozen

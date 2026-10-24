@@ -1,0 +1,8 @@
+# Experiment 3c (D27): dual-context disagreement, INTERPRETATION `dual`; no inference (rolling + frozen caches).
+base: base.yaml
+
+setup: selected
+selection_stage: base
+
+variant:
+  kind: dual

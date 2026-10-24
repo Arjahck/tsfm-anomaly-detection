@@ -1,0 +1,4 @@
+split,first_day,last_day,first_minute,end_minute
+fit,0,33,0,48960
+calib,34,40,48960,59040
+test,41,57,59040,83520

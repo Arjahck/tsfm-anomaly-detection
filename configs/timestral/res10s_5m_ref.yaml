@@ -1,0 +1,8 @@
+# The Timestral 10 s reference for the 1 s comparison (D52): 5M uni at 10 s; rolling, ff-interp-block and cf-onset
+# on the same device as the 1 s block. PAUSED (D117); the Chronos-2 reference is configs/res10s_uni_ff.yaml (D123).
+base: base.yaml                                   # configs/timestral/base.yaml (Timestral, paused)
+
+model:
+  size: 5M
+
+setup: uni

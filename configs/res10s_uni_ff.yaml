@@ -1,0 +1,9 @@
+# The 10 s reference for the 1 s comparison (D52, D123): Chronos-2 uni ff-interp-block at 10 s, calib + test, on the
+# base.yaml device. The reference rolling and cf-onset runs are the experiment 1 runs (same forecast hash). When the
+# base setup is uni this is the experiment 3a run itself (same hash, so `all` finds it cached).
+base: base.yaml
+
+setup: uni
+
+variant:
+  kind: ff

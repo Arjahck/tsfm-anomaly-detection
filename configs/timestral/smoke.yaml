@@ -1,0 +1,18 @@
+# The Timestral smoke settings of PLAN.md 8 and D54 (5M chain; MPS check for every size and setup that would run on
+# MPS), kept for a later switch back. PAUSED (D117): `tsfm-ad smoke` runs ../smoke.yaml (Chronos-2) only.
+base: ../smoke.yaml
+
+model:
+  name: timestral
+  size: 5M
+  max_context: 32768
+
+forecast:
+  cap: 32768
+
+mps_check:
+  - {size: 5M, setups: [uni, mv-lit]}
+  - {size: 28M, setups: [uni, uni57, mv-lit, mv-acttgt]}
+  - {size: 123M, setups: [uni, mv-lit]}
+mps_check_optional:                               # before a 209M run on mps only
+  - {size: 209M, setups: [uni, mv-lit]}

@@ -1,0 +1,10 @@
+# Option B (Arthur, 2026-10-21; D138, Q4): experiment 1 `uni` rolling at 10 s with H = 6 (a new forecast every
+# minute instead of every 5 minutes), history up to 8,192 steps as in the headline. Calib and test only. The missing
+# cell after REPORT.md 4.19: the headline setup restarted often, as a deployment would run it.
+base: exp1_uni.yaml
+
+forecast:
+  H: 6
+
+score:
+  calib_sources: [calib]                          # no calib2 forecasts (D138)

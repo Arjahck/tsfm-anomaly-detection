@@ -1,0 +1,14 @@
+# Optional sensitivity (D25): ff-interp-block with max_duration 30 and 120 steps on the base setup, fixed in advance
+# and reported without a pick. `tsfm-ad all --optional` runs one FF run per value of sweep.max_duration.
+base: base.yaml
+
+setup: selected
+selection_stage: base
+
+variant:
+  kind: ff
+  ff:
+    max_duration: 30
+
+sweep:
+  max_duration: [30, 120]

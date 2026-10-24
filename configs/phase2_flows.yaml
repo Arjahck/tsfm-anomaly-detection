@@ -1,0 +1,73 @@
+# Phase 2 flows sub-study (PLAN.md 15, D149): the brief's exfiltration ramp on flow bytes, days 0-14 only.
+# Same code as configs/phase2.yaml; only data, injections and paths differ. Not a Phase 1 config: it does not inherit
+# base.yaml, and nothing of Phase 1 reads it.
+seed: 0
+
+paths:
+  lanl: data/lanl
+  cache: cache/lanl_flows
+  results: results/phase2/flows
+  hf_cache: cache/hf
+
+data:                                            # D149: flows are complete on days 0-14 only (D148)
+  source: flows
+  prepared_dir: cache/lanl/prepared              # src_bytes_minute.parquet of the main prepare stage
+  minutes: 21600                                 # days 0-14
+  fit_days: [0, 8]
+  calib_days: [9, 10]
+  test_days: [11, 14]                            # 4 days (26.7 %); red-team days 12-14 are kept clear of injections
+  top_n: 5
+  groups:                                        # one host per group (D149): ramps on different hosts may overlap
+    fhost_1: [fhost_1]
+    fhost_2: [fhost_2]
+    fhost_3: [fhost_3]
+    fhost_4: [fhost_4]
+    fhost_5: [fhost_5]
+
+inject:                                          # PLAN.md 15.4, D143
+  seeds: [0, 1, 2]
+  replicas: 2
+  gap_after_min: 360
+  gap_before_min: 60
+  types:
+    ramp: {targets: [fhost_*], magnitudes: [0.5, 2.0, 10.0], durations: [120, 480]}
+
+model:
+  name: chronos2
+  device: mps
+  cpu_threads: 4
+  max_context: 8192
+  chronos2:
+    repo: amazon/chronos-2
+    revision: 29ec3766d36d6f73f0696f85560a422f50e8498c
+    package: chronos-forecasting==2.3.2
+    params: 119477664
+    dtype: float32
+
+forecast:
+  H: 30
+  cap: 8192
+  batch: 32                                      # origins per Chronos-2 call (rolling only; FF goes origin by origin)
+  covariates: [tod_sin, tod_cos, day]            # known-future, for the `mv-cov` run only
+
+ff: {pct: 99.5, k: 3, max_duration: null}        # ff-interp-block, the Phase 1 interpretation (D24, D44)
+
+score:
+  eps: 0.1
+  pct: 99.5
+  grace_min: 30                                  # an alarm up to 30 min after the end still detects the injection
+  fa_exclude_before_min: 60
+  fa_exclude_after_min: 360
+
+baselines:
+  robustz_window: 60
+  seasonal_lag: 1440
+
+redteam:
+  window_min: 180                                # +- 3 h around each red-team event cluster (history days)
+
+smoke:
+  calib_days: [10, 10]
+  test_days: [11, 12]
+  seeds: [0]
+  replicas: 1

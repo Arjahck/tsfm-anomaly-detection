@@ -1,0 +1,44 @@
+[project]
+name = "tsfm-ad"
+version = "0.1.0"
+description = "Time-series foundation models (Chronos-2; Timestral paused) for security anomaly detection (HAI, LANL)"
+readme = "brief.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "chronos-forecasting==2.3.2",
+    "torch==2.14.1",
+    "polars",
+    "numpy",
+    "pyyaml",
+    "matplotlib",
+    "scikit-learn",
+    "duckdb>=1.5.6",
+]
+
+[project.optional-dependencies]
+# Paused (licence, CLAUDE.md): not installed by default; `uv sync --extra timestral` only after Mistral's OK.
+timestral = [
+    "timestral @ git+https://github.com/mistralai/timestral.git@a534bdbd244d64f3d9d743f46c7bf6fc330ed4ff",
+]
+
+# The paper's PDF (paper/paper.typ, D153): `uv run --extra paper tsfm-ad paper`.
+paper = ["typst==0.15.0"]
+
+[project.scripts]
+tsfm-ad = "tsfm_ad.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tsfm_ad"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,5 @@
+# Experiment 1 brief-literal secondary (D39, Q17): Chronos-2, uni57 (every non-constant channel), rolling. Never a
+# candidate (D40).
+base: base.yaml
+
+setup: uni57

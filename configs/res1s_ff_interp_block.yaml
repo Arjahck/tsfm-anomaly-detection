@@ -1,0 +1,6 @@
+# 1 s comparison (D37, D123): ff-interp-block on Chronos-2 uni at 1 s, cap 8,192, thresholds from its own 1 s calib.
+# Behind `tsfm-ad all --optional` (D124).
+base: res1s_uni.yaml
+
+variant:
+  kind: ff

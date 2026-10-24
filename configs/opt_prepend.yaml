@@ -1,0 +1,9 @@
+# Optional (PLAN.md section 5, D81): prepend warm-up (the last `cap` = 8,192 steps of train3 before every calib and
+# test file) on the base setup, Chronos-2 rolling. Scored steps are unchanged (t >= W).
+base: base.yaml
+
+setup: selected
+selection_stage: base
+
+forecast:
+  warmup: prepend

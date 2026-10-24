@@ -1,0 +1,14 @@
+# Smoke slice at 1 s (D59): the same two 2 h slices as smoke.yaml at 1 s (7,200 steps each),
+# W = 1,500 steps, H = 30, N = 60 steps, and cap 2,048 so the context cap binds. Chronos-2 (D117).
+base: smoke.yaml
+
+dataset:
+  key: hai2103-1s-smoke
+  resolution_s: 1
+
+forecast:
+  cap: 2048
+
+mps_check:                                        # the 1 s block runs uni (PLAN.md sections 8, 14)
+  - {setups: [uni]}
+mps_check_optional: []

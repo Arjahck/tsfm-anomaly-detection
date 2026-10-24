@@ -1,0 +1,12 @@
+# Experiment 4 (D53): the best (setup, variant) of experiments 1-3, picked by `select --stage best` on 28M test
+# results, at Timestral-5M.
+base: base.yaml                                   # configs/timestral/base.yaml (Timestral, paused)
+
+model:
+  size: 5M
+
+setup: selected
+selection_stage: best
+
+variant:
+  kind: selected

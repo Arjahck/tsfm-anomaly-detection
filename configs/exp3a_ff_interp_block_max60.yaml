@@ -1,0 +1,11 @@
+# Experiment 3a bounded variant (D25): `ff-interp-block-max60-testinf`. max_duration 60 steps was set knowing the
+# test attack lengths, so it is test-informed and never a "best of 1-3" candidate.
+base: base.yaml
+
+setup: selected
+selection_stage: base
+
+variant:
+  kind: ff
+  ff:
+    max_duration: 60

@@ -1,0 +1,9 @@
+# Experiment 1 headline (PLAN.md sections 8 and 14): Chronos-2, uni (51 channels, D39), rolling, calib + calib2 + test.
+# calib2 is the sensitivity threshold of D51; calib stays the headline (first listed source).
+# `tsfm-ad all` also runs the cf-onset diagnostic (D46) of this setup from this config.
+base: base.yaml
+
+setup: uni
+
+score:
+  calib_sources: [calib, calib2]

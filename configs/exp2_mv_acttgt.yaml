@@ -1,0 +1,5 @@
+# Experiment 2 secondary (D22): Chronos-2, mv-acttgt (actuator commands as targets), rolling. Labelled; never a base
+# (D40).
+base: base.yaml
+
+setup: mv-acttgt

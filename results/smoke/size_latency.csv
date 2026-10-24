@@ -1,0 +1,3 @@
+run_key,model,params,device,setup,variant,channel_set,selected,sec_per_call_median,test_wallclock_s,roc_auc,pr_auc,tapr_f1,onset_cov_mean,interior_cov_mean,dataset,hash8
+hai2103-10s-smoke/chronos2-29ec376-cpu/uni/rolling,chronos2-29ec376-cpu,119477664,cpu,uni,rolling,uni51,true,0.242697,4.6,0.9174545454545455,0.7188130634959138,0.9882914509155405,0.0,0.8571428571428571,hai2103-10s-smoke,0c2081e0
+hai2103-10s-smoke/chronos2-29ec376-cpu/uni/rolling,chronos2-29ec376-cpu,119477664,cpu,uni,rolling,uni51,false,0.242697,4.6,0.9174545454545455,0.7188130634959138,0.9882914509155405,0.0,0.8571428571428571,hai2103-10s-smoke,0c2081e0

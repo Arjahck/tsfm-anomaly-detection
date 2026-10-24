@@ -1,0 +1,12 @@
+# Experiment 4 (D53): the best (setup, variant) of experiments 1-3, picked by `select --stage best` on 28M test
+# results, at Timestral-209M. Optional (PLAN.md section 8): only with `tsfm-ad all --optional`.
+base: base.yaml                                   # configs/timestral/base.yaml (Timestral, paused)
+
+model:
+  size: 209M
+
+setup: selected
+selection_stage: best
+
+variant:
+  kind: selected

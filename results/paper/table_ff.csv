@@ -1,0 +1,12 @@
+setting,method,exit,fa,fa_ratio,roc_auc,pr_auc,p_normal,detected
+"HAI 10 s, H = 30 (mv-lit)",rolling,-,1.11,1.0,0.862,0.397,0.0031,30
+"HAI 10 s, H = 30 (mv-lit)",FF,none,116.49,104.7,0.637,0.208,0.3236,42
+"HAI 10 s, H = 30 (mv-lit)",FF,30 steps,21.24,19.1,0.753,0.175,0.0590,29
+"HAI 10 s, H = 30 (mv-lit)",FF,60 steps,36.47,32.8,0.659,0.147,0.1013,27
+"HAI 10 s, H = 30 (mv-lit)",FF,120 steps,97.66,87.8,0.560,0.090,0.2713,26
+"HAI 1 s, H = 30, history 128",rolling,-,19.27,1.0,0.618,0.081,0.0054,32
+"HAI 1 s, H = 30, history 128",FF,none,diverged,-,-,-,-,-
+"HAI 1 s, H = 30, history 128",FF,30 steps,diverged,-,-,-,-,-
+"HAI 1 s, H = 30, history 128",FF,120 steps,633.08,32.8,0.591,0.097,0.1759,40
+"LANL 1 min, H = 30",rolling,-,6.70,1.0,-,-,0.0047,128
+"LANL 1 min, H = 30",FF,none,254.95,38.0,-,-,0.1771,72

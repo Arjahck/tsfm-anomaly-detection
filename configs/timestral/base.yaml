@@ -1,0 +1,13 @@
+# Timestral (PAUSED, licence: CLAUDE.md, D117). Kept for a later switch back, never run by `smoke` or `all`.
+# Loading a Timestral model needs TSFM_ALLOW_TIMESTRAL=1, which is only for after Arthur lifts the
+# pause. Every config in this folder starts from this file: the shared Phase 1 settings of ../base.yaml with the
+# Timestral model and its 32,768-step context (PLAN.md sections 2, 6, 8 and 10 describe the Timestral plan).
+base: ../base.yaml
+
+model:
+  name: timestral
+  size: 28M                                       # D16
+  max_context: 32768
+
+forecast:
+  cap: 32768                                      # D12: never binds in-file at 10 s

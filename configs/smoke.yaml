@@ -1,0 +1,31 @@
+# Smoke slice at 10 s (PLAN.md section 11, D42): 2 h of test1 (contains A101) and 2 h of calib train1.
+# Own dataset key, so smoke never shares prepared data, cache directories or thresholds with a full run.
+# fit (normalization) and ref (frozen context) stay the full segments of base.yaml. Model: Chronos-2 (base.yaml, D117);
+# the Timestral smoke settings are in configs/timestral/smoke.yaml (paused).
+base: base.yaml
+
+# D132: the smoke runs on cpu, the reference device of the D54 check, while the headline runs are on mps (D130).
+# The check itself runs every smoke rolling forecast on both devices.
+model:
+  device: cpu
+
+paths:
+  results: results/smoke
+
+dataset:
+  key: hai2103-10s-smoke
+  splits:
+    test:
+      - {name: test1, file: test1, start: "2020-07-07 15:00:00", end: "2020-07-07 16:59:59"}
+    calib:
+      - {name: train1a, file: train1, start: "2020-07-11 00:00:00", end: "2020-07-11 01:59:59"}
+    calib2: []
+
+plots:
+  timeline_attacks: [A101]                        # the only attack in the smoke slice (onset at step 211)
+
+# D54, D121: every (model, setup) that may run on MPS is checked against CPU on this slice (rolling, calib + test).
+# Chronos-2 has one size, so an item has no `size` (a `size` picks a Timestral size).
+mps_check:
+  - {setups: [uni, uni57, mv-lit, mv-acttgt]}
+mps_check_optional: []

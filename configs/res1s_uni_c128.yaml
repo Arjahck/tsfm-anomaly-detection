@@ -1,0 +1,7 @@
+# Option A (Arthur, 2026-10-20; D137): Lowe et al.'s setting on HAI. 1 s data, history capped at 128 steps (their
+# longest input I = 128, Table 2), H = 30 (their 32 is not a multiple of the stride rule; ours steps by H). Same
+# warm-up W = 1,500 and scored steps as the 1 s run of res1s_uni.yaml, so only the context length differs.
+base: res1s_uni.yaml
+
+forecast:
+  cap: 128

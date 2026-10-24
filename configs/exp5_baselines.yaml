@@ -1,0 +1,6 @@
+# Experiment 5 (D28, D49): robustz, lastvalue and seasonal-refday on all 57 channels, scored like every TSFM run on
+# every channel set. No inference; `tsfm-ad baselines` writes their quantiles in the forecast cache schema.
+base: base.yaml
+
+model:
+  name: baseline

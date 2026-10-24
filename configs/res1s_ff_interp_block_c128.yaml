@@ -1,0 +1,6 @@
+# Option A (D137): ff-interp-block (our FF interpretation) in Lowe et al.'s setting: 1 s, history 128 steps, H = 30.
+# FF thresholds from its own 1 s cap-128 calib rolling forecast (D24).
+base: res1s_uni_c128.yaml
+
+variant:
+  kind: ff

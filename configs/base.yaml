@@ -1,0 +1,153 @@
+# Base config for Phase 1 (HAI 21.03, 10 s, Chronos-2). Every other config starts with `base: base.yaml` and overrides
+# keys (deep merge; lists replace). See PLAN.md sections 4-11 and 14 and the D-numbers cited in the comments.
+seed: 0
+
+paths:
+  data: data/hai/hai-21.03
+  cache: cache
+  hf_cache: cache/hf
+  results: results/phase1
+  attacks_pdf: configs/hai2103_attacks_pdf.csv   # D56
+
+dataset:
+  key: hai2103-10s
+  resolution_s: 10                                # D6; 1 s is the optional short-context config
+  test_files: [test1, test2, test3, test4, test5]
+  # Segment specs: file = raw HAI file; start/end = first/last 1 s row kept (inclusive). Omitted = whole file
+  # minus its last row (D3). Names are unique across splits. PLAN.md section 5, D9, D10, D26, D51.
+  splits:
+    fit:
+      - {name: train2, file: train2}
+      - {name: train3, file: train3}
+    ref:
+      - {name: reference, file: train3, start: "2020-08-09 11:00:00", end: "2020-08-10 10:59:59"}
+    calib:
+      - {name: train1a, file: train1, start: "2020-07-11 00:00:00", end: "2020-07-11 23:59:59"}
+      - {name: train1b, file: train1, start: "2020-07-12 00:00:00", end: "2020-07-12 23:59:59"}
+    calib2:
+      - {name: train2a, file: train2, start: "2020-08-01 00:00:00", end: "2020-08-01 23:59:59"}
+      - {name: train2b, file: train2, start: "2020-08-02 00:00:00", end: "2020-08-02 23:59:59"}
+    test:
+      - {name: test1, file: test1}
+      - {name: test2, file: test2}
+      - {name: test3, file: test3}
+      - {name: test4, file: test4}
+      - {name: test5, file: test5}
+  excluded:                                       # listed in splits.csv only, never prepared (D9)
+    - {name: train1_dup, file: train1, start: "2020-07-13 00:00:00"}
+
+channels:
+  rules:
+    # Roles are computed at 1 s on the fit + calib rows only (D57), independent of any smoke slice.
+    roles_rows:
+      - {file: train2}
+      - {file: train3}
+      - {file: train1, end: "2020-07-12 23:59:59"}
+    step_max_change_rate: 0.01                    # step covariate: changes on < 1 % of 1 s steps (section 3.4)
+    # Tags ending in D that the PDF describes as a command to a valve or pump (HAI-PDF p.13-16).
+    actuator_commands: [P1_FCV01D, P1_FCV02D, P1_FCV03D, P1_LCV01D, P1_PCV01D, P1_PCV02D, P1_PP01AD, P1_PP01BD,
+                        P1_PP02D, P3_LCP01D, P3_LCV01D]
+    expected_counts: {dropped: 22, step: 6, actuator: 7, continuous: 44}
+  # Setups (section 3.4). univariate = one group, every target an independent series; multivariate = one group
+  # per process with targets forecast jointly and covariates past-only. `channel_set` names the scored set.
+  setups:
+    uni:       {mode: univariate,   processes: [P1, P2, P3, P4], targets: [continuous, actuator], covariates: [], channel_set: uni51}
+    uni57:     {mode: univariate,   processes: [P1, P2, P3, P4], targets: [continuous, actuator, step], covariates: [], channel_set: uni57}
+    mv-lit:    {mode: multivariate, processes: [P1, P2, P3], targets: [continuous], covariates: [step, actuator], channel_set: mvlit34}
+    mv-acttgt: {mode: multivariate, processes: [P1, P2, P3], targets: [continuous, actuator], covariates: [step], channel_set: mvacttgt41}
+  extra_sets:                                     # every set is also scored without these channels (D50)
+    noPCV02Z: [P1_PCV02Z]
+  strata:                                         # offset strata from dropped 1 s test tags, in this order (D47)
+    - {name: trip, tag: P2_OnOff, normal: 1}
+    - {name: pcv02d, tag: P1_PCV02D, normal: 12}
+
+model:
+  # D117: Phase 1 runs on Chronos-2 while Timestral is paused (licence, CLAUDE.md). `timestral` is refused unless
+  # TSFM_ALLOW_TIMESTRAL=1; its configs are in configs/timestral/ and `all` never runs them.
+  name: chronos2                                  # chronos2 | timestral (paused) | baseline (experiment 5)
+  device: mps                                     # D130 (Q18 answered): MPS passes the relative D54 rule (mps_check.csv);
+                                                  # was cpu (D121). --device cpu for machines without MPS
+  cpu_threads: 4
+  max_context: 8192                               # the Chronos-2 maximum (config.json context_length; PLAN.md 14)
+  chronos2:                                       # PLAN.md 14.1
+    repo: amazon/chronos-2
+    revision: 29ec3766d36d6f73f0696f85560a422f50e8498c
+    package: chronos-forecasting==2.3.2           # also pinned in pyproject.toml; checked at load
+    params: 119477664
+    dtype: float32                                # D119: bf16 moves quantiles by up to 0.028
+  # Timestral (paused; used only when model.name is timestral, i.e. by configs/timestral/). PLAN.md 1, 2, D16, D35.
+  size: 28M                                       # D16
+  repo_prefix: mistralai/Timestral-
+  revisions:
+    5M: bdd20cfc15a3fea0e4cb5ccef37f8d3ca7aa335f
+    28M: 49b26409ac87b5935539a5d8ffe7f397b720db47
+    123M: 5a147287addda85f6acd8da3fb8858fe9af7e8f7
+    209M: 9874d252ab0aae16f7f7c999f98f98d6ad7d8365
+  params: {5M: 5208960, 28M: 27821184, 123M: 122606720, 209M: 209312256}   # PLAN.md section 1; size_latency.csv
+  timestral_commit: a534bdbd244d64f3d9d743f46c7bf6fc330ed4ff
+
+forecast:
+  H: 30                                           # D13
+  W_s: 1500                                       # D11: unscored warm-up in seconds (150 steps at 10 s)
+  cap: 8192                                       # D118: the Chronos-2 maximum (Timestral: 32768, D12)
+  warmup: in_file                                 # in_file | prepend
+  symmetric_averaging: true                       # D14 (Timestral only; not in the Chronos-2 forecast hash)
+  clip_nonnegative: false                         # D14 (Timestral only)
+
+setup: uni                                        # a setup name, or `selected` (read from selection.csv)
+selection_stage: base
+
+variant:
+  kind: rolling                                   # rolling | ff | frozen | dual | cf-onset
+  ff:                                             # D24, D25 (used only when kind = ff)
+    k: 3
+    pct: 99.5
+    scope: feature
+    max_duration: null
+
+baselines:
+  robustz_window_s: 3600
+  season_s: 86400
+
+score:
+  eps: 0.1                                        # D17
+  kinds: [band, crps, mae]
+  agg: [topk, max]
+  k: 3                                            # D19
+  smooth: null
+  threshold_pct: 99.5                             # D20
+  calib_sources: [calib]
+
+metrics:
+  N_onset_s: 60                                   # D29
+  N_sensitivity_s: [30, 120]
+  h_buckets: [[1, 10], [11, 20], [21, 30]]
+  tso_buckets_s: [[0, 59], [60, 119], [120, 239], [240, null]]
+  tapr:                                           # D30
+    - {name: headline, alpha: 0.5, theta: 0.5, delta_s: 180}
+    - {name: strict, alpha: 0.5, theta: 0.5, delta_s: 0}
+    - {name: haicon_like, alpha: 0.5, theta_r: 0.1, theta_p: 0.7, delta_s: 180}
+
+selection:                                        # D21
+  metric: pr_auc
+  tiebreak: roc_auc
+  agg: topk
+
+compare:                                          # D135: evaluation only; no pick or threshold reads its CSVs
+  fa_per_hour: [0.5, 1, 2, 5]                     # matched false-alarm targets, fixed before any compare result
+  scores: [band, crps, mae]                       # the dual run has only its dual score, compared under band
+  agg: topk
+  bootstrap: {B: 1000, block_s: 3600, seed: 0, ci: 0.95}
+  workers: 8
+  sets:                                           # reference = the Chronos-2 run every other method is paired with
+    mvlit34:
+      reference: exp2_mv.yaml
+      others: [exp1_uni.yaml, exp3a_ff_interp_block.yaml, exp3b_frozen.yaml, exp3c_dual.yaml, lastvalue,
+               seasonal-refday, robustz]
+    uni51:
+      reference: exp1_uni.yaml
+      others: [lastvalue, seasonal-refday, robustz, opt_small_uni.yaml, res10s_uni_c128.yaml, res10s_uni_h6.yaml]
+      # opt_small_uni: chronos-2-small (D136); res10s_uni_c128: history 128 (D137); res10s_uni_h6: H = 6 (D138)
+
+plots:
+  timeline_attacks: [A202, A210, A403, A217, A219, A203]   # D33

@@ -1,0 +1,8 @@
+# D137: the planned FF max-duration sensitivity (D25, opt_ff_max_sens) in Lowe et al.'s setting (1 s, history 128,
+# H = 30): ff-interp-block with fallback bounded at 120 steps (120 s at 1 s). Run after the no-exit variant diverged to
+# non-finite values on calib (REPORT.md 4.19); the values 120 is taken from opt_ff_max_sens.yaml, not chosen here.
+base: res1s_ff_interp_block_c128.yaml
+
+variant:
+  ff:
+    max_duration: 120

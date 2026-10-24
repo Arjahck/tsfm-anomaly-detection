@@ -1,0 +1,14 @@
+seed 0: shift magnitude 0.2 duration 1440 replica 0
+seed 0: ramp magnitude 2.0 duration 480 replica 0
+seed 0: shift magnitude 0.5 duration 360 replica 0
+seed 0: silence magnitude 0.0 duration 180 replica 0
+seed 0: ramp magnitude 10.0 duration 120 replica 0
+seed 0: ramp magnitude 0.5 duration 120 replica 0
+seed 0: ramp magnitude 2.0 duration 120 replica 0
+seed 0: burst magnitude 20.0 duration 60 replica 0
+seed 0: burst magnitude 2.0 duration 60 replica 0
+seed 0: burst magnitude 5.0 duration 60 replica 0
+seed 0: silence magnitude 0.0 duration 30 replica 0
+seed 0: burst magnitude 20.0 duration 10 replica 0
+seed 0: burst magnitude 2.0 duration 10 replica 0
+seed 0: burst magnitude 5.0 duration 10 replica 0

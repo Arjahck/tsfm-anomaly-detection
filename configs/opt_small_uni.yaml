@@ -1,0 +1,15 @@
+# Q19 (Arthur, 2026-10-20), D136: experiment 1 `uni` rolling with autogluon/chronos-2-small (28M) instead of
+# amazon/chronos-2 (120M), calib and test only. A size sensitivity, not experiment 4 (deferred, D123). The small model
+# has 13 quantile levels; model_chronos2_small.py interpolates the 8 missing cache levels (band and mae unaffected).
+base: exp1_uni.yaml
+
+model:
+  chronos2:
+    repo: autogluon/chronos-2-small
+    revision: ddec01313e50b6bc58ebaa92ede81bc24a3d9f9a
+    params: 27934624
+    tag: small
+    adapter: model_chronos2_small
+
+score:
+  calib_sources: [calib]                          # no calib2 forecasts for the small model (D136)

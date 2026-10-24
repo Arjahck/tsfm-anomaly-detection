@@ -1,0 +1,12 @@
+# Optional (PLAN.md section 8, Q8): Timestral-5M uni rolling at 1 s with the full 32,768-step context cap (about
+# 5.5 h on MPS). Timestral only (PAUSED, D117): the Chronos-2 maximum is 8,192 steps, so this run has no Chronos-2
+# counterpart.
+base: ../res1s_uni.yaml
+
+model:
+  name: timestral
+  size: 5M
+  max_context: 32768
+
+forecast:
+  cap: 32768

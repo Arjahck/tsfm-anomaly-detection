@@ -1,0 +1,7 @@
+# Experiment 4 unselected setup (D53): uni rolling at Timestral-123M, picked on no result.
+base: base.yaml                                   # configs/timestral/base.yaml (Timestral, paused)
+
+model:
+  size: 123M
+
+setup: uni

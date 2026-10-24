@@ -1,0 +1,3 @@
+seed 0: ramp magnitude 10.0 duration 480 replica 0
+seed 1: ramp magnitude 0.5 duration 480 replica 1
+seed 2: ramp magnitude 0.5 duration 480 replica 1

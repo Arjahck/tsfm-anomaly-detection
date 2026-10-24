@@ -1,0 +1,11 @@
+# 1 s comparison (PLAN.md sections 8 and 14, D12, D37, D123): Chronos-2 uni, context cap 8,192 (the model maximum),
+# W = 1,500 steps, H = 30. `tsfm-ad all --optional` runs rolling, the baselines and cf-onset from this config (D124:
+# behind --optional because of its cost). Its 10 s reference is the 10 s Chronos-2 uni run on the same device (D52).
+base: base.yaml
+
+dataset:
+  key: hai2103-1s
+  resolution_s: 1
+
+forecast:
+  cap: 8192

@@ -1,0 +1,14 @@
+series,group,source,entity,rank,fit_total,definition
+auth_total,tenant,auth,"",,,auth events
+auth_failed,tenant,auth,"",,,auth events with Fail
+users_distinct,tenant,auth,"",,,"distinct source users, machine accounts excluded"
+dc_1,dc,auth,C586,1,71190508,auth events with destination C586
+dc_2,dc,auth,C612,2,46178699,auth events with destination C612
+dc_3,dc,auth,C529,3,44179477,auth events with destination C529
+dc_4,dc,auth,C467,4,43267008,auth events with destination C467
+dc_5,dc,auth,C457,5,41314710,auth events with destination C457
+host_1,host,auth,C625,1,20425456,auth events with source computer C625
+host_2,host,auth,C1065,2,19316901,auth events with source computer C1065
+host_3,host,auth,C528,3,16775267,auth events with source computer C528
+host_4,host,auth,C2106,4,10149994,auth events with source computer C2106
+host_5,host,auth,C2162,5,7040842,auth events with source computer C2162
