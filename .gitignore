@@ -1,19 +1,9 @@
 data/
 cache/
+results/
 .venv/
 __pycache__/
 *.pyc
 .DS_Store
 .pytest_cache/
 .ruff_cache/
-
-# research notes, report, paper and results: kept locally, not published
-CLAUDE.md
-brief.md
-PLAN.md
-REPORT.md
-EXPLANATION.md
-paper/
-results/
-figures/pipeline.png
-figures/interior_coverage.png
