@@ -1,6 +1,0 @@
-series,group,source,entity,rank,fit_total,definition
-fhost_1,fhost,flows,C1707,1,2931688238331.0,"flow bytes with source C1707, at the flow's start minute"
-fhost_2,fhost,flows,C5720,2,2172083216489.0,"flow bytes with source C5720, at the flow's start minute"
-fhost_3,fhost,flows,C1685,3,2129398344170.0,"flow bytes with source C1685, at the flow's start minute"
-fhost_4,fhost,flows,C20101,4,1326208589437.0,"flow bytes with source C20101, at the flow's start minute"
-fhost_5,fhost,flows,C5721,5,954655230356.0,"flow bytes with source C5721, at the flow's start minute"

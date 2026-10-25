@@ -1,8 +1,0 @@
-label,method,kappa,c_pre,c_post
-"HAI 10 s, H = 30",lastvalue,0.248,0.326,0.504
-"HAI 10 s, H = 30",robustz,0.248,0.235,0.142
-"HAI 1 s, H = 30",lastvalue,0.860,0.154,0.231
-"HAI 1 s, H = 30",robustz,0.860,0.045,0.282
-"LANL 1 min, H = 30, history 8,192",Chronos-2 + covariates,0.956,0.579,0.004
-"LANL 1 min, H = 30",lastvalue,0.956,0.484,0.009
-"LANL 1 min, H = 30",robustz,0.956,0.539,0.033

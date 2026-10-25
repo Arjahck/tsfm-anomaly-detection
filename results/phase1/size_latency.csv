@@ -1,4 +1,0 @@
-run_key,model,params,device,setup,variant,channel_set,selected,sec_per_call_median,test_wallclock_s,roc_auc,pr_auc,tapr_f1,onset_cov_mean,interior_cov_mean,dataset,hash8
-hai2103-10s/chronos2-29ec376-mps/mv-lit/rolling,chronos2-29ec376-mps,119477664,mps,mv-lit,rolling,mvlit34,true,0.314448,1726.0,0.8624599793672887,0.3970651826770197,0.4001572582122394,0.2633333333333333,0.295035433067348,hai2103-10s,c06bc843
-hai2103-10s/chronos2-29ec376-mps/uni/rolling,chronos2-29ec376-mps,119477664,mps,uni,rolling,uni51,false,1.268419,1857.8,0.8935688841901794,0.40096596620903524,0.39813404196910657,0.28,0.29016415186627953,hai2103-10s,47703ec2
-hai2103-10s/chronos2-small-ddec013-mps/uni/rolling,chronos2-small-ddec013-mps,27934624,mps,uni,rolling,uni51,false,0.344136,499.5,0.8760978779529985,0.39139814382204935,0.39319766807834944,0.28,0.2900380344529281,hai2103-10s,cd7c876b
