@@ -127,17 +127,6 @@ uv run tsfm-ad p2 --config configs/phase2_flows.yaml --stage all \
 Outputs in `results/phase2/` (injection manifest, thresholds, detections, false alarms, curves, red team, figures);
 forecasts in `cache/lanl/`. Every stage after `prepare` reads the cache only and skips cached parts.
 
-## Build the paper
-
-`paper/paper.pdf` ("Contamination Share: Why Zero-Shot Forecasting Detectors See the Start of an Attack and Not the
-Rest", PLAN.md D153) is built from the result files and the cached LANL forecasts, with no model call:
-
-```bash
-uv run --extra paper tsfm-ad paper      # results/paper/ (tables, figures), then paper/paper.typ -> paper/paper.pdf
-```
-
-Without the `paper` extra (Typst) the command still writes the tables and figures and skips the PDF.
-
 ## Commands
 
 Every command: `uv run tsfm-ad <cmd> --config configs/<file>.yaml [--split calib|calib2|test|ref|all] [--device cpu|mps]`.
